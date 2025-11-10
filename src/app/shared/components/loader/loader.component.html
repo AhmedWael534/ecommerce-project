@@ -1,0 +1,11 @@
+<!-- This spinner will show/hide based on the loaderService -->
+<ngx-spinner
+  *ngIf="loaderService.isLoading | async"
+  bdColor="rgba(0,0,0,0.7)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+>
+  <p style="color: white; font-size: 20px; margin-top: 10px;">Loading...</p>
+</ngx-spinner>

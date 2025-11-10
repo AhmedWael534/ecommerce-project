@@ -1,0 +1,5 @@
+/* Make carousel images fit well */
+.carousel-item img {
+  height: 400px;
+  object-fit: cover;
+}

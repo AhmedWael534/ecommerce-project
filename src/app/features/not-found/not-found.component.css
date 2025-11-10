@@ -1,0 +1,22 @@
+.not-found-container {
+  /* Center vertically and add significant padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 140px); /* Full height minus approx navbar+footer */
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.error-code {
+  font-size: 8rem; /* Make the 404 number huge */
+  color: var(--app-accent); /* Use the Teal color */
+}
+
+/* Ensure divider uses the correct light color on dark theme */
+:host-context([data-bs-theme="dark"]) .divider-custom-line,
+:host-context([data-bs-theme="dark"]) .divider-custom-icon {
+   background-color: var(--bs-body-color);
+   color: var(--bs-body-color);
+}

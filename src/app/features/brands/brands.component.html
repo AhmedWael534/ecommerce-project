@@ -1,0 +1,15 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4">All Brands</h2>
+  <div class="row g-4">
+    @for (brand of brands; track brand._id) {
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm text-center p-3">
+          <img [src]="brand.image" class="card-img-top w-50 mx-auto" [alt]="brand.name">
+          <div class="card-body">
+            <h4 class="card-title">{{ brand.name }}</h4>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

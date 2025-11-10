@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- Import Fonts & Libraries (Keep these as they are) --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* --- Base Styles --- */
+body {
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* --- Theme Variables (The Magic) --- */
+:root {
+  /* Light Mode (Default) */
+  --bg-color-main: #ffffff;
+  --bg-color-light: #f8f9fa;
+  --text-color-main: #212529;
+  --text-color-muted: #6c757d;
+  --border-color: #dee2e6;
+  --primary-color: #0aad0a;
+  --primary-color-hover: #088a08;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+}
+
+body.dark-mode {
+  /* Dark Mode */
+  --bg-color-main: #121212;
+  --bg-color-light: #1e1e1e;
+  --text-color-main: #f8f9fa;
+  --text-color-muted: #adb5bd;
+  --border-color: #495057;
+  --primary-color: #0aad0a; /* Keep brand color */
+  --primary-color-hover: #0ce60c;
+  --navbar-bg: #1e1e1e;
+  --card-bg: #1e1e1e;
+}
+
+/* --- Global Theme Application --- */
+body {
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* General component styles */
+.bg-light {
+  background-color: var(--bg-color-light) !important;
+}
+
+.text-muted {
+  color: var(--text-color-muted) !important;
+}
+
+.card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color-main) !important;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.list-group-item {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color-main) !important;
+}
+
+.form-control {
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
+  border-color: var(--border-color);
+}
+
+.form-control:focus {
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(10, 173, 10, 0.25);
+}
+
+.form-control::placeholder {
+  color: var(--text-color-muted);
+}
+
+/* --- Brand Color Button --- */
+.btn-primary-main {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-primary-main:hover {
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+  color: #fff;
+}

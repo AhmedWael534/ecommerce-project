@@ -1,0 +1,27 @@
+/* Using the same styles as Cart */
+.cart-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.remove-btn {
+  font-size: 0.9rem;
+  color: #dc3545; /* Red */
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+}
+
+.remove-btn:hover {
+  text-decoration: underline;
+}

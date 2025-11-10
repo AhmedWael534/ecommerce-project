@@ -1,0 +1,12 @@
+/* Optional: Style the outline button */
+.btn-main-outline {
+  background-color: #fff;
+  color: var(--app-primary);
+  border: 1px solid var(--app-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-main-outline:hover {
+  background-color: var(--app-primary);
+  color: #fff;
+}

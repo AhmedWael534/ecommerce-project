@@ -1,0 +1,39 @@
+.navbar {
+  background-color: var(--navbar-bg);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s;
+}
+
+.nav-link {
+  color: var(--text-color-main);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Style for the active (current) page link */
+.nav-link.active-link {
+  color: var(--primary-color) !important;
+  font-weight: 700;
+}
+
+/* Logout button style */
+.nav-link[style*="cursor: pointer"] {
+  cursor: pointer;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color-main);
+  font-size: 1.1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.theme-toggle-btn:hover {
+  color: var(--primary-color);
+}

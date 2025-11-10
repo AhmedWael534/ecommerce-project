@@ -1,0 +1,30 @@
+<div class="container my-5">
+    <h2>My Orders</h2>
+    @if (orders.length > 0) {
+    @for (order of orders; track order.id) {
+    <div class="p-4 bg-light shadow-sm rounded mb-4">
+        <h4 class="h5">Order ID: {{ order.id }}</h4>
+        <p>Total Price: <span class="text-primary fw-bold">{{ order.totalOrderPrice }} EGP</span></p>
+        <p>Payment Method: <span class="text-capitalize">{{ order.paymentMethodType }}</span></p>
+        <p>Delivered: {{ order.isDelivered ? 'Yes' : 'No' }}</p>
+
+        <hr>
+        <h5>Items in this Order:</h5>
+        <div class="row">
+            @for (item of order.cartItems; track item._id) {
+            <div class="col-md-2 text-center">
+                <img [src]="item.product.imageCover" class="w-100 mb-2 rounded" [alt]="item.product.title">
+                <h6>{{ item.product.title | seeMore: 2 }}</h6>
+                <p class="small text-muted">{{ item.price }} EGP x {{ item.count }}</p>
+            </div>
+            }
+        </div>
+    </div>
+    }
+    } @else {
+    <div class="text-center p-5 bg-light rounded shadow-sm">
+        <h3 class="text-muted">You haven't placed any orders yet.</h3>
+        <a routerLink="/products" class="btn btn-main mt-3">Start Shopping</a>
+    </div>
+    }
+</div>

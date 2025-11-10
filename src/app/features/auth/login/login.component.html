@@ -1,0 +1,58 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>Login Now:</h2>
+      
+      <!-- Show API error if it exists -->
+      @if (apiError) {
+        <div class="alert alert-danger">
+          {{ apiError }}
+        </div>
+      }
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        
+        <div class="mb-3">
+          <label for="email">Email:</label>
+          <input type="email" id="email" class="form-control" formControlName="email">
+          <!-- Validation Messages -->
+          @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+            <div class="alert alert-danger mt-1">
+              @if (loginForm.get('email')?.getError('required')) {
+                <span>Email is required.</span>
+              }
+              @if (loginForm.get('email')?.getError('email')) {
+                <span>Invalid email format.</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="password">Password:</label>
+          <input type="password" id="password" class="form-control" formControlName="password">
+          @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+            <div class="alert alert-danger mt-1">
+              @if (loginForm.get('password')?.getError('required')) {
+                <span>Password is required.</span>
+              }
+              @if (loginForm.get('password')?.getError('pattern')) {
+                <span>Password must start with uppercase letter and be 6-11 chars long.</span>
+              }
+            </div>
+          }
+        </div>
+        
+        <a routerLink="/auth/forgot-password" class="d-block mb-3">Forgot Password?</a>
+
+        <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn btn-main">
+          @if (!isLoading) {
+            <span>Login</span>
+          } @else {
+            <span><i class="fa fa-spinner fa-spin"></i> Loading...</span>
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

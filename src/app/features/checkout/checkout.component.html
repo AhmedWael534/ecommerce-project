@@ -1,0 +1,53 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Shipping Address</h2>
+      
+      @if (apiError) {
+        <div class="alert alert-danger">
+          {{ apiError }}
+        </div>
+      }
+
+      <form [formGroup]="checkoutForm">
+        <div class="mb-3">
+          <label for="city">City:</label>
+          <input type="text" id="city" class="form-control" formControlName="city">
+        </div>
+        <div class="mb-3">
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" class="form-control" formControlName="phone">
+        </div>
+        <div class="mb-3">
+          <label for="details">Address Details:</label>
+          <textarea id="details" class="form-control" formControlName="details"></textarea>
+        </div>
+
+        <p>Choose Payment Method:</p>
+        <button 
+          type="button" 
+          [disabled]="checkoutForm.invalid || isLoading" 
+          class="btn btn-main w-100 mb-2" 
+          (click)="createCashOrder()">
+          @if (isLoading) {
+            <span><i class="fa fa-spinner fa-spin"></i></span>
+          } @else {
+            <span>Pay Cash on Delivery</span>
+          }
+        </button>
+
+        <button 
+          type="button" 
+          [disabled]="checkoutForm.invalid || isLoading" 
+          class="btn btn-main-outline w-100" 
+          (click)="createOnlineOrder()">
+          @if (isLoading) {
+            <span><i class="fa fa-spinner fa-spin"></i></span>
+          } @else {
+            <span>Pay Online (Credit Card)</span>
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

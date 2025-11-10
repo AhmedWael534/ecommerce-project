@@ -1,0 +1,41 @@
+.cart-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-summary {
+  background-color: var(--bg-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.remove-btn {
+  font-size: 0.9rem;
+  color: #dc3545; /* Red */
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+}
+
+.remove-btn:hover {
+  text-decoration: underline;
+}
+
+.quantity-btn {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+}
