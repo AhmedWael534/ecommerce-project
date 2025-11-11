@@ -11,22 +11,22 @@ export class AddressService {
 
   constructor(private _http: HttpClient) { }
 
-  // 22. Add address
+  // Add address
   addAddress(address: Address): Observable<any> {
     return this._http.post(this.baseUrl, address);
   }
 
-  // 23. Remove address
+  // Remove address
   removeAddress(addressId: string): Observable<any> {
     return this._http.delete(`${this.baseUrl}/${addressId}`);
   }
 
-  // 24. Get specific address
+  // Get specific address
   getSpecificAddress(addressId: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${addressId}`);
   }
 
-  // 25. Get logged user addresses
+  // Get logged user addresses
   getLoggedUserAddresses(): Observable<any> {
     return this._http.get(this.baseUrl);
   }

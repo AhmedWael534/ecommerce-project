@@ -5,9 +5,10 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { loaderInterceptor } from './core/interceptors/loader.interceptor';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideClientHydration } from '@angular/platform-browser';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,11 @@ export const appConfig: ApplicationConfig = {
     ])),
     // Provide animations for NgxSpinner
     provideAnimations(),
+    provideToastr({      // إعدادات الـ Toastr
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     // Import modules
     importProvidersFrom(
       NgxSpinnerModule,

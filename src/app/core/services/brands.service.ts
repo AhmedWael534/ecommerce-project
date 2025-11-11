@@ -10,12 +10,12 @@ export class BrandsService {
 
   constructor(private _http: HttpClient) { }
 
-  // 17. Get All Brands
+  // Get All Brands
   getAllBrands(): Observable<any> {
     return this._http.get(this.baseUrl);
   }
 
-  // 18. Get Specific Brand
+  // Get Specific Brand
   getSpecificBrand(id: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }

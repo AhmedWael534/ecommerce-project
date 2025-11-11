@@ -2,11 +2,11 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2>Shipping Address</h2>
-      
+
       @if (apiError) {
-        <div class="alert alert-danger">
-          {{ apiError }}
-        </div>
+      <div class="alert alert-danger">
+        {{ apiError }}
+      </div>
       }
 
       <form [formGroup]="checkoutForm">
@@ -24,27 +24,28 @@
         </div>
 
         <p>Choose Payment Method:</p>
-        <button 
-          type="button" 
-          [disabled]="checkoutForm.invalid || isLoading" 
-          class="btn btn-main w-100 mb-2" 
+
+        <button type="button" [disabled]="checkoutForm.invalid || isLoading" class="btn btn-main w-100"
           (click)="createCashOrder()">
           @if (isLoading) {
-            <span><i class="fa fa-spinner fa-spin"></i></span>
+          <span><i class="fa fa-spinner fa-spin"></i></span>
           } @else {
-            <span>Pay Cash on Delivery</span>
+          <span>Pay Cash on Delivery</span>
           }
         </button>
 
-        <button 
-          type="button" 
-          [disabled]="checkoutForm.invalid || isLoading" 
-          class="btn btn-main-outline w-100" 
+        <div class="d-flex align-items-center my-3">
+          <hr class="flex-grow-1">
+          <span class="mx-2 text-muted">OR</span>
+          <hr class="flex-grow-1">
+        </div>
+
+        <button type="button" [disabled]="checkoutForm.invalid || isLoading" class="btn btn-main-outline w-100"
           (click)="createOnlineOrder()">
           @if (isLoading) {
-            <span><i class="fa fa-spinner fa-spin"></i></span>
+          <span><i class="fa fa-spinner fa-spin"></i></span>
           } @else {
-            <span>Pay Online (Credit Card)</span>
+          <span>Pay Online (Credit Card)</span>
           }
         </button>
       </form>

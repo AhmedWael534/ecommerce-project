@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { SeeMorePipe } from '../../shared/pipes/see-more.pipe';
+import { AuthService } from '../../core/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-wishlist',
@@ -13,13 +15,16 @@ import { SeeMorePipe } from '../../shared/pipes/see-more.pipe';
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.css']
 })
+
 export class WishlistComponent implements OnInit {
   wishlistProducts: Product[] = [];
 
   constructor(
     private _wishlistService: WishlistService,
-    private _cartService: CartService
-  ) {}
+    private _cartService: CartService,
+    private _authService: AuthService,
+    private _toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getWishlist();
@@ -34,22 +39,33 @@ export class WishlistComponent implements OnInit {
   }
 
   removeFromWishlist(productId: string): void {
-    this._wishlistService.removeProductFromWishlist(productId).subscribe({
-      next: (res) => {
-        // After removing, filter the product out from the local array
-        this.wishlistProducts = this.wishlistProducts.filter(p => p._id !== productId);
-      }
-    });
+    if (this._authService.isLoggedIn()) {
+      this._wishlistService.removeProductFromWishlist(productId).subscribe({
+        next: (res) => {
+          this.wishlistProducts = this.wishlistProducts.filter(p => p._id !== productId);
+          this._toastr.info('Product removed from wishlist');
+        },
+        error: (err) => this._toastr.error('An error occurred')
+      });
+    } else {
+      this._toastr.warning('Please, Log in first');
+    }
   }
 
   addToCart(productId: string): void {
-    this._cartService.addProductToCart(productId).subscribe({
-      next: (res) => {
-        console.log(res);
-        this._cartService.cartItemCount.next(res.numOfCartItems);
-        // Remove from wishlist after adding to cart
-        this.removeFromWishlist(productId);
-      },
-    });
+    if (this._authService.isLoggedIn()) {
+      this._cartService.addProductToCart(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this._cartService.cartItemCount.next(res.numOfCartItems);
+          this.removeFromWishlist(productId);
+          this._toastr.success(res.message);
+        },
+        error: (err) => this._toastr.error('An error occurred')
+      });
+    } else {
+      this._toastr.warning('Please, Log in first');
+    }
   }
+
 }

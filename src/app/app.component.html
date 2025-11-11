@@ -1,8 +1,14 @@
-<!-- Navbar stays on top -->
+<ngx-spinner
+  type="ball-spin-clockwise"
+  color="#4fa74f"
+  bdColor="rgba(255,255,255,0.7)"
+  [fullScreen]="true"
+></ngx-spinner>
+<app-loader></app-loader>
 <app-navbar></app-navbar>
 
 <!-- Main content area where pages are rendered -->
-<div class="main-content">
+<div class="container-fluid px-5">
   <router-outlet></router-outlet>
 </div>
 
@@ -10,5 +16,3 @@
 <!-- Footer stays at bottom -->
 <app-footer></app-footer>
 
-<!-- Loader (Spinner) sits on top of everything -->
-<app-loader></app-loader>

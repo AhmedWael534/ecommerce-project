@@ -11,27 +11,27 @@ export class CategoriesService {
 
   constructor(private _http: HttpClient) { }
 
-  // 12. Get All Categories
+  // Get All Categories
   getAllCategories(): Observable<any> {
     return this._http.get(this.baseUrl);
   }
 
-  // 13. Get Specific Category
+  // Get Specific Category
   getSpecificCategory(id: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }
 
-  // 14. Get All SubCategories
+  // Get All SubCategories
   getAllSubCategories(): Observable<any> {
     return this._http.get(this.subcatBaseUrl);
   }
 
-  // 15. Get Specific SubCategory
+  // Get Specific SubCategory
   getSpecificSubCategory(id: string): Observable<any> {
     return this._http.get(`${this.subcatBaseUrl}/${id}`);
   }
 
-  // 16. Get SubCategories On Category
+  // Get SubCategories On Category
   getSubCategoriesOnCategory(id: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}/subcategories`);
   }

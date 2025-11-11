@@ -1,45 +1,72 @@
 <div class="container-fluid px-5 mt-4">
-  <!-- Search Bar -->
-  <input 
-    type="text" 
-    class="form-control form-control-lg mb-4" 
-    placeholder="Search for products..."
-    [(ngModel)]="searchTerm"
-  >
 
-  <!-- Products Grid -->
-  <div class="row g-4">
-    <!-- Use @for for modern control flow -->
-    @for (product of products | search:searchTerm; track product._id) {
-      <div class="col-md-3 col-lg-2">
-        <div class="product-card card h-100 shadow-sm border-0">
-          
-          <!-- Link to product details page -->
-          <a [routerLink]="['/product-details', product._id]" class="text-decoration-none">
-            <img [src]="product.imageCover" class="card-img-top" [alt]="product.title">
-            <div class="card-body">
-              <h3 class="h6 text-primary">{{ product.category.name }}</h3>
-              <h2 class="h5 card-title">{{ product.title | seeMore:2 }}</h2>
-              <div class="d-flex justify-content-between align-items-center">
-                <span>{{ product.price }} EGP</span>
-                <span>
-                  <i class="fa fa-star text-warning"></i>
-                  {{ product.ratingsAverage }}
-                </span>
-              </div>
-            </div>
-          </a>
-
-          <!-- Add to Cart Button -->
-          <div class="card-footer bg-white border-0">
-            <button class="btn btn-main w-100" (click)="addToCart(product._id)">
-              + Add to Cart
-            </button>
-          </div>
+  <div class="mb-5">
+    <h2 class="h4 mb-3">Shop Popular Categories</h2>
+    @if (categories.length > 0) {
+    <owl-carousel-o [options]="customOptions">
+      @for (category of categories; track category._id) {
+      <ng-template carouselSlide>
+        <div class="category-item text-center px-2 cursor-pointer">
+          <img [src]="category.image" [alt]="category.name" class="img-fluid"
+            style="height: 150px; width: 100%; object-fit: cover; border-radius: 8px;">
+          <h3 class="h6 mt-2">{{ category.name }}</h3>
         </div>
-      </div>
-    } @empty {
-      <p class="text-center">No products found.</p>
+      </ng-template>
+      }
+    </owl-carousel-o>
+    } @else {
+    <p>Loading categories...</p>
     }
   </div>
+
+  <input type="text" class="form-control form-control-lg mb-4" placeholder="Search for products..."
+    [(ngModel)]="searchTerm">
+
+  <h2 class="h4 mb-3">Featured Products</h2>
+
+  <div class="row g-4">
+    @for (product of products | search:searchTerm; track product._id) {
+    <div class="col-md-3 col-lg-2">
+      <div class="product-card card h-100 shadow-sm border-0 position-relative">
+
+        <span class="wishlist-icon cursor-pointer" (click)="toggleWishlist(product._id)">
+          <i class="fa-heart" [class.fa-solid]="isProductInWishlist(product._id)"
+            [class.fa-regular]="!isProductInWishlist(product._id)"
+            [class.text-danger]="isProductInWishlist(product._id)">
+          </i>
+        </span>
+
+        <a [routerLink]="['/product-details', product._id]" class="text-decoration-none">
+          <img [src]="product.imageCover" class="card-img-top" [alt]="product.title">
+          <div class="card-body">
+            <h3 class="h6 text-primary">{{ product.category.name }}</h3>
+            <h2 class="h5 card-title">{{ product.title | seeMore:2 }}</h2>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>{{ product.price }} EGP</span>
+              <span>
+                <i class="fa fa-star text-warning"></i>
+                {{ product.ratingsAverage }}
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <div class="card-footer bg-white border-0">
+          <button class="btn btn-main w-100" (click)="addToCart(product._id)">
+            + Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+    } @empty {
+    <p class="text-center">No products found.</p>
+    }
+  </div>
+
+  <div class="text-center my-4">
+    <a routerLink="/products" class="btn btn-main btn-lg">
+      View All Products
+    </a>
+  </div>
+
 </div>

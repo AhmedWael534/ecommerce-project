@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 export class CartComponent implements OnInit {
   cart: Cart | null = null;
 
-  constructor(private _cartService: CartService) {}
+  constructor(private _cartService: CartService) { }
 
   ngOnInit(): void {
     this.getCart();

@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 export class ProductsService {
   private baseUrl = 'https://ecommerce.routemisr.com/api/v1/products';
 
+  private categoriesUrl = 'https://ecommerce.routemisr.com/api/v1/categories';
+
   constructor(private _http: HttpClient) { }
 
   // 10. Get All Products
@@ -18,5 +20,10 @@ export class ProductsService {
   // 11. Get Specific Product
   getSpecificProduct(id: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
+  }
+
+
+  getAllCategories(): Observable<any> {
+    return this._http.get(this.categoriesUrl);
   }
 }

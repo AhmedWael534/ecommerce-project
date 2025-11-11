@@ -12,13 +12,13 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-  currentStep: number = 1; // 1: forgot, 2: verify, 3: reset
+  currentStep: number = 1; 
   forgotForm: FormGroup;
   verifyForm: FormGroup;
   resetForm: FormGroup;
   apiError: string = '';
   isLoading: boolean = false;
-  userEmail: string = ''; // To store email for the last step
+  userEmail: string = '';
 
   constructor(
     private _fb: FormBuilder,
@@ -36,7 +36,7 @@ export class ForgotPasswordComponent {
     });
   }
 
-  // Step 1: Send email
+  // Send email
   sendCode(): void {
     if (this.forgotForm.valid) {
       this.isLoading = true;
@@ -45,7 +45,7 @@ export class ForgotPasswordComponent {
         next: (res) => {
           this.isLoading = false;
           this.apiError = '';
-          this.currentStep = 2; // Move to step 2
+          this.currentStep = 2;
         },
         error: (err) => {
           this.isLoading = false;
@@ -55,7 +55,7 @@ export class ForgotPasswordComponent {
     }
   }
 
-  // Step 2: Verify code
+  // Verify code
   verifyCode(): void {
     if (this.verifyForm.valid) {
       this.isLoading = true;
@@ -63,7 +63,7 @@ export class ForgotPasswordComponent {
         next: (res) => {
           this.isLoading = false;
           this.apiError = '';
-          this.currentStep = 3; // Move to step 3
+          this.currentStep = 3;
         },
         error: (err) => {
           this.isLoading = false;
@@ -73,7 +73,7 @@ export class ForgotPasswordComponent {
     }
   }
 
-  // Step 3: Reset password
+  // Reset password
   resetPassword(): void {
     if (this.resetForm.valid) {
       this.isLoading = true;
@@ -84,7 +84,7 @@ export class ForgotPasswordComponent {
       this._authService.resetPassword(resetData).subscribe({
         next: (res) => {
           this.isLoading = false;
-          // Password reset, redirect to login
+          // Redirect to login
           this._router.navigate(['/auth/login']);
         },
         error: (err) => {

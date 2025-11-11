@@ -1,12 +1,44 @@
-/* Optional: Style the outline button */
-.btn-main-outline {
-  background-color: #fff;
-  color: var(--app-primary);
-  border: 1px solid var(--app-primary);
-  transition: background-color 0.3s, color 0.3s;
+.btn-main {
+  background-color: #4fa74f;
+  color: white;
+  border: 1px solid #4fa74f;
+  font-weight: 600;
+  padding: 10px 0;
+  transition: all 0.3s ease;
 }
 
-.btn-main-outline:hover {
-  background-color: var(--app-primary);
-  color: #fff;
+.btn-main:not([disabled]):hover {
+  background-color: #3e8e3e;
+  border-color: #3e8e3e;
+}
+
+.btn-main[disabled] {
+  background-color: #f0f0f0;
+  color: #9e9e9e;
+  border-color: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+
+.btn-main-outline {
+  color: #4fa74f;
+  border: 1px solid #4fa74f;
+  background-color: transparent;
+  font-weight: 600;
+  padding: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.btn-main-outline:not([disabled]):hover {
+  background-color: #4fa74f;
+  color: white;
+}
+
+.btn-main-outline[disabled] {
+  color: #9e9e9e;
+  border-color: #f0f0f0;
+  background-color: transparent;
+  cursor: not-allowed;
+  opacity: 1;
 }

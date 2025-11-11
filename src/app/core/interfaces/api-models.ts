@@ -35,7 +35,7 @@ export interface Product {
   category: Category;
   brand: Brand;
   ratingsAverage: number;
-  // Add other fields as needed
+  
 }
 
 export interface CartItem {

@@ -15,32 +15,32 @@ export class AuthService {
 
   constructor(private _http: HttpClient, private _router: Router) {}
 
-  // 1. Signup
+  // Signup
   signup(userData: any): Observable<AuthResponse> {
     return this._http.post<AuthResponse>(`${this.baseUrl}/signup`, userData);
   }
 
-  // 2. Signin
+  // Signin
   signin(userData: any): Observable<AuthResponse> {
     return this._http.post<AuthResponse>(`${this.baseUrl}/signin`, userData);
   }
 
-  // 3. Forgot Password
+  // Forgot Password
   forgotPassword(emailData: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/forgotPasswords`, emailData);
   }
 
-  // 4. Verify Reset Code
+  // Verify Reset Code
   verifyResetCode(codeData: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/verifyResetCode`, codeData);
   }
 
-  // 5. Reset Password
+  // Reset Password
   resetPassword(passwordData: any): Observable<any> {
     return this._http.put(`${this.baseUrl}/resetPassword`, passwordData);
   }
 
-  // 6. Verify Token (You added this, might be custom)
+  // Verify Token
   verifyToken(tokenData: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/verifyToken`, tokenData);
   }

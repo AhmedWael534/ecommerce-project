@@ -31,7 +31,7 @@ export class NavbarComponent {
 
   logout() {
     this._authService.logout();
-    this._router.navigate(['/login']);
+    this._router.navigate(['/home']);
   }
 
   toggleTheme() {

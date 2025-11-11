@@ -10,17 +10,17 @@ export class WishlistService {
 
   constructor(private _http: HttpClient) { }
 
-  // 19. Add product to wishlist
+  // Add product to wishlist
   addProductToWishlist(productId: string): Observable<any> {
     return this._http.post(this.baseUrl, { productId: productId });
   }
 
-  // 20. Remove product from wishlist
+  // Remove product from wishlist
   removeProductFromWishlist(productId: string): Observable<any> {
     return this._http.delete(`${this.baseUrl}/${productId}`);
   }
 
-  // 21. Get logged user wishlist
+  // Get logged user wishlist
   getLoggedUserWishlist(): Observable<any> {
     return this._http.get(this.baseUrl);
   }

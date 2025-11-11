@@ -1,48 +1,56 @@
 <div class="container my-5">
   @if (product) {
-    <div class="row">
-      <!-- Image Carousel -->
-      <div class="col-md-4">
-        <div id="productCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            @for (image of productImages; track $index; let first = $first) {
-              <div class="carousel-item" [class.active]="first">
-                <img [src]="image" class="d-block w-100" [alt]="product.title">
-              </div>
-            }
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div id="productCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
 
-      <!-- Product Info -->
-      <div class="col-md-8">
-        <h2>{{ product.title }}</h2>
-        <p class="text-muted">{{ product.description }}</p>
-        <h3 class="text-primary">{{ product.category.name }}</h3>
-        
-        <div class="d-flex justify-content-between align-items-center my-3">
-          <span class="h4">{{ product.price }} EGP</span>
-          <span class="h5">
-            <i class="fa fa-star text-warning"></i>
-            {{ product.ratingsAverage }}
-          </span>
+        <div class="carousel-inner">
+          @for (image of productImages; track $index; let first = $first) {
+          <div class="carousel-item" [class.active]="first">
+            <img [src]="image" class="d-block w-100" [alt]="product.title">
+          </div>
+          }
         </div>
-        
-        <button class="btn btn-main w-100" (click)="addToCart(product._id)">
-          + Add to Cart
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
         </button>
       </div>
     </div>
+
+    <div class="col-md-8">
+      <div class="d-flex justify-content-between align-items-start">
+        <h2>{{ product.title }}</h2>
+
+        <span class="wishlist-icon-details cursor-pointer ms-3" (click)="toggleWishlist(product._id)">
+          <i class="fa-heart fs-2" [class.fa-solid]="isProductInWishlist(product._id)"
+            [class.fa-regular]="!isProductInWishlist(product._id)"
+            [class.text-danger]="isProductInWishlist(product._id)">
+          </i>
+        </span>
+      </div>
+
+      <p class="text-muted">{{ product.description }}</p>
+      <h3 class="text-primary">{{ product.category.name }}</h3>
+
+      <div class="d-flex justify-content-between align-items-center my-3">
+        <span class="h4">{{ product.price }} EGP</span>
+        <span class="h5">
+          <i class="fa fa-star text-warning"></i>
+          {{ product.ratingsAverage }}
+        </span>
+      </div>
+
+      <button class="btn btn-main w-100" (click)="addToCart(product._id)">
+        + Add to Cart
+      </button>
+    </div>
+  </div>
   } @else {
-    <!-- This will show while the product is loading -->
-    <p class="text-center">Loading product details...</p>
+  <p class="text-center">Loading product details...</p>
   }
 </div>

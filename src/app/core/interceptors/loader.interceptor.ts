@@ -1,16 +1,23 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader.service';
-import { finalize } from 'rxjs';
 
-export const loaderInterceptor: HttpInterceptorFn = (req, next) => {
+export const loaderInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<any>> => {
+
   const loaderService = inject(LoaderService);
-  
-  // Show loader before request
+
   loaderService.show();
 
   return next(req).pipe(
-    // Hide loader after request is complete (or errors)
-    finalize(() => loaderService.hide())
+
+    finalize(() => {
+
+      loaderService.hide();
+    })
   );
 };

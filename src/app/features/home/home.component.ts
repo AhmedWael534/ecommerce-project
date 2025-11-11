@@ -1,59 +1,138 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../core/services/products.service';
-import { Product } from '../../core/interfaces/api-models';
+import { Product, Category } from '../../core/interfaces/api-models';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { SeeMorePipe } from '../../shared/pipes/see-more.pipe';
 import { SearchPipe } from '../../shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { WishlistService } from '../../core/services/wishlist.service';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  // Make sure to import all needed modules for a standalone component
   imports: [
-    CommonModule, 
-    RouterModule, 
-    SeeMorePipe, 
-    SearchPipe, 
-    FormsModule
+    CommonModule,
+    RouterModule,
+    SeeMorePipe,
+    SearchPipe,
+    FormsModule,
+    CarouselModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
+  categories: any[] = [];
   searchTerm: string = '';
+  wishlistProductIds: string[] = [];
+
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'], // أسهم
+    responsive: {
+      0: { items: 1 },
+      400: { items: 3 },
+      740: { items: 4 },
+      940: { items: 6 }
+    },
+    nav: true
+  };
 
   constructor(
     private _productsService: ProductsService,
-    private _cartService: CartService
-  ) {}
+    private _cartService: CartService,
+    private _authService: AuthService,
+    private _toastr: ToastrService,
+    private _wishlistService: WishlistService
+  ) { }
 
   ngOnInit(): void {
-    // Call the service to get products
     this._productsService.getAllProducts().subscribe({
       next: (res) => {
-        this.products = res.data;
+        this.products = res.data.slice(0, 12);
       },
       error: (err) => {
         console.error(err);
       }
     });
+
+    this._productsService.getAllCategories().subscribe({
+      next: (res) => {
+        this.categories = res.data;
+      },
+      error: (err) => {
+        console.error('Error fetching categories:', err);
+      }
+    });
+
+    if (this._authService.isLoggedIn()) {
+      this._wishlistService.getLoggedUserWishlist().subscribe({
+        next: (res) => {
+          this.wishlistProductIds = res.data.map((item: Product) => item._id);
+        },
+        error: (err) => {
+          console.error('Error fetching wishlist:', err);
+        }
+      });
+    } else {
+      this.wishlistProductIds = [];
+    }
   }
 
-  // Function to add a product to the cart
   addToCart(productId: string): void {
-    this._cartService.addProductToCart(productId).subscribe({
-      next: (res) => {
-        console.log(res);
-        // Update the cart count in the service
-        this._cartService.cartItemCount.next(res.numOfCartItems);
-      },
-      error: (err) => {
-        console.error(err);
+    if (this._authService.isLoggedIn()) {
+      this._cartService.addProductToCart(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this._cartService.cartItemCount.next(res.numOfCartItems);
+          this._toastr.success(res.message);
+        },
+        error: (err) => {
+          console.error(err);
+          this._toastr.error('An error occurred');
+        }
+      });
+    } else {
+      this._toastr.warning('Please, Log in first');
+    }
+  }
+
+  toggleWishlist(productId: string): void {
+    if (this._authService.isLoggedIn()) {
+      if (this.isProductInWishlist(productId)) {
+        this._wishlistService.removeProductFromWishlist(productId).subscribe({
+          next: (res) => {
+            this.wishlistProductIds = res.data;
+            this._toastr.info('Product removed from wishlist');
+          },
+          error: (err) => this._toastr.error('An error occurred')
+        });
+      } else {
+        this._wishlistService.addProductToWishlist(productId).subscribe({
+          next: (res) => {
+            this.wishlistProductIds = res.data;
+            this._toastr.success('Product added to wishlist');
+          },
+          error: (err) => this._toastr.error('An error occurred')
+        });
       }
-    });
+    } else {
+      this._toastr.warning('Please, Log in first');
+    }
+  }
+
+  isProductInWishlist(productId: string): boolean {
+    return this.wishlistProductIds.includes(productId);
   }
 }

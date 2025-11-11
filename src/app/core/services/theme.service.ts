@@ -8,12 +8,12 @@ export class ThemeService {
   private isDarkMode = false;
 
   constructor(rendererFactory: RendererFactory2) {
-    // We use RendererFactory2 to get the Renderer2 instance safely
+
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
   checkTheme() {
-    // Check local storage on startup
+
     if (typeof localStorage !== 'undefined') {
       const storedTheme = localStorage.getItem('theme');
       if (storedTheme === 'dark') {
@@ -22,7 +22,7 @@ export class ThemeService {
         this.enableLightMode();
       }
     } else {
-      // Default to light mode if local storage is not available
+      // Default to light mode
       this.enableLightMode();
     }
   }

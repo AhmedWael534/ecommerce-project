@@ -51,7 +51,6 @@ export class RegisterComponent {
         }
       });
     } else {
-      // Mark all fields as touched to show errors
       this.registerForm.markAllAsTouched();
     }
   }

@@ -36,8 +36,8 @@ export class LoginComponent {
       this._authService.signin(this.loginForm.value).subscribe({
         next: (res) => {
           localStorage.setItem('userToken', res.token);
-          this._authService.setLoggedIn(); // Update auth status
-          
+          this._authService.setLoggedIn();
+
           // Fetch cart to update count
           this._cartService.getLoggedUserCart().subscribe({
             next: (cartRes) => {
@@ -47,7 +47,7 @@ export class LoginComponent {
               console.error("Could not fetch cart count", err);
             }
           });
-          
+
           this.isLoading = false;
           this._router.navigate(['/home']);
         },

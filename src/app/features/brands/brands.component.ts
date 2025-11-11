@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class BrandsComponent implements OnInit {
   brands: Brand[] = [];
 
-  constructor(private _brandsService: BrandsService) {}
+  constructor(private _brandsService: BrandsService) { }
 
   ngOnInit(): void {
     this._brandsService.getAllBrands().subscribe({

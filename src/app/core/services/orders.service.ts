@@ -10,28 +10,24 @@ export class OrdersService {
 
   constructor(private _http: HttpClient) { }
 
-  // 31. Create Cash Order
+  // Create Cash Order
   createCashOrder(cartId: string, shippingAddress: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/${cartId}`, { shippingAddress: shippingAddress });
   }
 
-  // 32. Get All Orders (Admin only)
+  // Get All Orders
   getAllOrders(): Observable<any> {
     return this._http.get(this.baseUrl);
   }
 
-  // 33. Get User Orders
+  // Get User Orders
   getUserOrders(userId: string): Observable<any> {
-    // Note: The API docs say 6407cf6f515bdcf347c09f17 which is a user ID
-    // We should get this ID dynamically, but for now we hardcode it
-    // In a real app, you'd get the logged-in user's ID
     return this._http.get(`${this.baseUrl}/user/6407cf6f515bdcf347c09f17`);
   }
 
-  // 34. Checkout session (Online Payment)
+  // Checkout session (Online Payment)
   checkoutSession(cartId: string, shippingAddress: any): Observable<any> {
-    // The API URL seems to need the host URL.
-    const hostUrl = 'http://localhost:4200'; // Change this to your live URL on deployment
+    const hostUrl = 'http://localhost:4200';
     return this._http.post(`${this.baseUrl}/checkout-session/${cartId}?url=${hostUrl}`, { shippingAddress: shippingAddress });
   }
 }

@@ -35,7 +35,7 @@ export class CheckoutComponent implements OnInit {
     this.cartId = this._route.snapshot.queryParamMap.get('cartId');
   }
 
-  // 1. Cash Payment
+  // Cash Payment
   createCashOrder(): void {
     if (this.checkoutForm.valid && this.cartId) {
       this.isLoading = true;
@@ -53,7 +53,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  // 2. Online Payment
+  // Online Payment
   createOnlineOrder(): void {
     if (this.checkoutForm.valid && this.cartId) {
       this.isLoading = true;
