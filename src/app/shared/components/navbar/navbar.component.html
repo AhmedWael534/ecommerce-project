@@ -40,6 +40,23 @@
         </li>
       </ul>
 
+      <!-- Left Side (Main Pages) - if not logged in -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active-link">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/categories" routerLinkActive="active-link">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/brands" routerLinkActive="active-link">Brands</a>
+        </li>
+      
+      </ul>
+
       <!-- Right Side (Auth & Social) -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
         
@@ -68,10 +85,10 @@
         <!-- Auth Links -->
         <ng-container *ngIf="!isLoggedIn">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active-link">Login</a>
+            <a class="nav-link" routerLink="/auth/login" routerLinkActive="active-link">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/register" routerLinkActive="active-link">Register</a>
+            <a class="nav-link" routerLink="/auth/register" routerLinkActive="active-link">Register</a>
           </li>
         </ng-container>
 

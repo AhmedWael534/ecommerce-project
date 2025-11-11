@@ -28,17 +28,21 @@ export const routes: Routes = [
   },
 
   // Protected routes (using authGuard)
-  { path: 'home', canActivate: [authGuard], component: HomeComponent, title: 'Home' },
-  { path: 'products', canActivate: [authGuard], component: ProductsComponent, title: 'Products' },
-  { path: 'product-details/:id', canActivate: [authGuard], component: ProductDetailsComponent, title: 'Product Details' },
+  
+  
+  
   { path: 'cart', canActivate: [authGuard], component: CartComponent, title: 'Cart' },
   { path: 'checkout', canActivate: [authGuard], component: CheckoutComponent, title: 'Checkout' },
   { path: 'allorders', canActivate: [authGuard], component: AllOrdersComponent, title: 'All Orders' },
   { path: 'wishlist', canActivate: [authGuard], component: WishlistComponent, title: "Wishlist" },
-  { path: 'categories', canActivate: [authGuard], component: CategoriesComponent, title: 'Categories' },
-  { path: 'brands', canActivate: [authGuard], component: BrandsComponent, title: 'Brands' },
+ 
 
-  // Default and Not Found
+  // Public , Default and Not Found
+  { path: 'products', component: ProductsComponent, title: 'Products' },
+   { path: 'categories', component: CategoriesComponent, title: 'Categories' },
+  { path: 'brands', component: BrandsComponent, title: 'Brands' },
+  { path: 'home', component: HomeComponent, title: 'Home' },
+  { path: 'product-details/:id', component: ProductDetailsComponent, title: 'Product Details' },
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default to home
   { path: '**', component: NotFoundComponent, title: 'Not Found' } // 404 page
 ];
