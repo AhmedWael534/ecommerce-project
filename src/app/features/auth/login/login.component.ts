@@ -21,41 +21,26 @@ export class LoginComponent {
     private _fb: FormBuilder,
     private _authService: AuthService,
     private _router: Router,
-    private _cartService: CartService // Inject CartService
+    private _cartService: CartService
   ) {
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
-      // Password regex: starts with uppercase, 6-11 chars
-      password: ['', [Validators.required, Validators.pattern(/^[A-Z][a-z0-9]{5,10}$/)]]
+      password: ['', [Validators.required]]
     });
   }
 
-  login(): void {
-    if (this.loginForm.valid) {
-      this.isLoading = true;
-      this._authService.signin(this.loginForm.value).subscribe({
-        next: (res) => {
-          localStorage.setItem('userToken', res.token);
-          this._authService.setLoggedIn();
-
-          // Fetch cart to update count
-          this._cartService.getLoggedUserCart().subscribe({
-            next: (cartRes) => {
-              this._cartService.cartItemCount.next(cartRes.numOfCartItems);
-            },
-            error: (err) => {
-              console.error("Could not fetch cart count", err);
-            }
-          });
-
-          this.isLoading = false;
-          this._router.navigate(['/home']);
-        },
-        error: (err) => {
-          this.apiError = err.error.message;
-          this.isLoading = false;
-        }
-      });
-    }
+  login() {
+    this.isLoading = true;
+    this.apiError = '';
+    this._authService.signin(this.loginForm.value).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this._router.navigate(['/home']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.apiError = err.error.message;
+      }
+    });
   }
 }

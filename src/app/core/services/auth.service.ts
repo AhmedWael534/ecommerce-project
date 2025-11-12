@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse } from '../interfaces/api-models';
 import { Router } from '@angular/router';
 
@@ -9,11 +9,42 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private baseUrl = 'https://ecommerce.routemisr.com/api/v1/auth';
-  
-  // Subject to track login status
+  private usersUrl = 'https://ecommerce.routemisr.com/api/v1/users';
+
+  public userData = new BehaviorSubject<any>(null);
   public authStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
 
-  constructor(private _http: HttpClient, private _router: Router) {}
+  constructor(private _http: HttpClient, private _router: Router) {
+    if (this.isLoggedIn()) {
+      const storedUser = localStorage.getItem('userData');
+      if (storedUser) {
+        this.userData.next(JSON.parse(storedUser));
+      }
+    }
+  }
+
+  // Update Logged user password
+  updateMyPassword(passwordData: any): Observable<any> {
+    return this._http.put(`${this.usersUrl}/changeMyPassword`, passwordData).pipe(
+      tap((response: any) => {
+
+        if (response.token) {
+          this.handleLoginSuccess(response.token, response.user || this.userData.getValue());
+        }
+      })
+    );
+  }
+
+
+  // Update Logged user data
+  updateMyData(userData: any): Observable<any> {
+    return this._http.put(`${this.usersUrl}/updateMe/`, userData);
+  }
+
+  // Get All Users
+  getAllUsers(): Observable<any> {
+    return this._http.get(this.usersUrl);
+  }
 
   // Signup
   signup(userData: any): Observable<AuthResponse> {
@@ -22,43 +53,55 @@ export class AuthService {
 
   // Signin
   signin(userData: any): Observable<AuthResponse> {
-    return this._http.post<AuthResponse>(`${this.baseUrl}/signin`, userData);
+    return this._http.post<AuthResponse>(`${this.baseUrl}/signin`, userData).pipe(
+      tap((response: AuthResponse) => {
+        if (response.token && response.user) {
+
+          this.handleLoginSuccess(response.token, response.user);
+        }
+      })
+    );
   }
 
-  // Forgot Password
+
   forgotPassword(emailData: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/forgotPasswords`, emailData);
   }
 
-  // Verify Reset Code
   verifyResetCode(codeData: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/verifyResetCode`, codeData);
   }
 
-  // Reset Password
   resetPassword(passwordData: any): Observable<any> {
     return this._http.put(`${this.baseUrl}/resetPassword`, passwordData);
   }
 
-  // Verify Token
   verifyToken(tokenData: any): Observable<any> {
     return this._http.post(`${this.baseUrl}/verifyToken`, tokenData);
   }
 
-  // Helper function to check login
+  // Helper function
   isLoggedIn(): boolean {
     return !!localStorage.getItem('userToken');
   }
 
+
   // Logout function
   logout(): void {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('userData');
+
     this.authStatus.next(false);
+    this.userData.next(null);
+
     this._router.navigate(['/auth/login']);
   }
 
-  // Helper to update status on login
-  setLoggedIn(): void {
+  private handleLoginSuccess(token: string, user: any): void {
+    localStorage.setItem('userToken', token);
+    localStorage.setItem('userData', JSON.stringify(user));
+
     this.authStatus.next(true);
+    this.userData.next(user);
   }
 }

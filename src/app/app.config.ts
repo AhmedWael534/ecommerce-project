@@ -19,9 +19,8 @@ export const appConfig: ApplicationConfig = {
       authInterceptor,
       loaderInterceptor
     ])),
-    // Provide animations for NgxSpinner
     provideAnimations(),
-    provideToastr({      // إعدادات الـ Toastr
+    provideToastr({    
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
@@ -29,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     // Import modules
     importProvidersFrom(
       NgxSpinnerModule,
-      ReactiveFormsModule // Make ReactiveForms available globally
+      ReactiveFormsModule
     )
   ]
 };

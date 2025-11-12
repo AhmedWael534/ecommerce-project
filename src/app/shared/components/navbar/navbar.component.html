@@ -11,7 +11,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="mainNavbar">
-      
+
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="/home" routerLinkActive="active-link">Home</a>
@@ -25,7 +25,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/brands" routerLinkActive="active-link">Brands</a>
         </li>
-        
+
         <ng-container *ngIf="isLoggedIn">
           <li class="nav-item">
             <a class="nav-link" routerLink="/cart" routerLinkActive="active-link">Cart</a>
@@ -36,11 +36,15 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/allorders" routerLinkActive="active-link">All Orders</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profile" routerLinkActive="active-link">Profile</a>
+          </li>
         </ng-container>
       </ul>
 
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-        
+
         <li class="nav-item">
           <a class="nav-link" href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
         </li>
@@ -50,7 +54,7 @@
         <li class="nav-item">
           <a class="nav-link" href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
         </li>
-        
+
         <li class="nav-item ms-2">
           <button (click)="toggleTheme()" class="btn theme-toggle-btn">
             <i *ngIf="isDarkMode" class="fa-solid fa-sun"></i>

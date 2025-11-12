@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { CommonModule } from '@angular/common'; // Needed for *ngIf, AsyncPipe
-import { ThemeService } from '../../../core/services/theme.service'; // Import ThemeService
+import { CommonModule } from '@angular/common'; 
+import { ThemeService } from '../../../core/services/theme.service'; 
 
 @Component({
   selector: 'app-navbar',

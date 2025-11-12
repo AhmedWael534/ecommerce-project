@@ -20,9 +20,11 @@ export class OrdersService {
     return this._http.get(this.baseUrl);
   }
 
+  
   // Get User Orders
   getUserOrders(userId: string): Observable<any> {
-    return this._http.get(`${this.baseUrl}/user/6407cf6f515bdcf347c09f17`);
+    
+    return this._http.get(`${this.baseUrl}/user/${userId}`); 
   }
 
   // Checkout session (Online Payment)

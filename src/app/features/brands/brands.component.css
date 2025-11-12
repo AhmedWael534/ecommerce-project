@@ -11,14 +11,11 @@
   color: var(--primary-color);
 }
 
-/* 1. ⬇️ ⬇️ (هنا حل مشكلة "أكل" صورة البراند) ⬇️ ⬇️ */
 .brand-card .card-img-top {
-  /* إنت عاملها w-50 فـ إحنا بس محتاجين نضمن الارتفاع */
-  height: 150px; 
-  object-fit: contain; /* هتخلي اللوجو كامل (مش مقصوص) */
+  height: 150px;
+  object-fit: contain;
 }
-/* 1. ⬆️ ⬆️ (نهاية الحل) ⬆️ ⬆️ */
 
 .brand-card .card-body {
-  padding: 1rem 0 0 0; /* قللت المسافات عشان الشكل */
+  padding: 1rem 0 0 0;
 }

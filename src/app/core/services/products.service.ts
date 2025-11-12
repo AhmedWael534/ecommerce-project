@@ -12,43 +12,37 @@ export class ProductsService {
 
   constructor(private _http: HttpClient) { }
 
-  // 10. ⬇️ ⬇️ ⬇️  هنا التعديل  ⬇️ ⬇️ ⬇️
   getAllProducts(filters: any = {}): Observable<any> {
-    
-    // 1. ابدأ بـ HttpParams فاضية
+
     let params = new HttpParams();
 
-    // 2. (الحل) ضيف باراميتر الـ limit عشان يجيب 100 منتج
-    params = params.append('limit', '100'); 
+    params = params.append('limit', '100');
 
-    // 3. ضيف باقي الفلاتر (زي البراند أو القسم الفرعي)
     Object.keys(filters).forEach(key => {
       if (filters[key]) {
         params = params.append(key, filters[key]);
       }
     });
 
-    // 4. ابعت الطلب
     return this._http.get(this.baseUrl, { params: params });
   }
-  // 10. ⬆️ ⬆️ ⬆️  نهاية التعديل  ⬆️ ⬆️ ⬆️
+  
 
-  // 11. Get Specific Product (زي ما هو)
+  // Get Specific Product
   getSpecificProduct(id: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }
 
-  // 12. getAllCategories (زي ما هو)
+  // getAllCategories
   getAllCategories(): Observable<any> {
     return this._http.get(this.categoriesUrl);
   }
 
-  // 13. جلب الأقسام الفرعية (زي ما هو)
   getSubcategoriesForCategory(categoryId: string): Observable<any> {
     return this._http.get(`${this.categoriesUrl}/${categoryId}/subcategories`);
   }
 
-  // 14. جلب البراندات (زي ما هو)
+  // getAllBrands
   getAllBrands(): Observable<any> {
     return this._http.get(this.brandsUrl);
   }

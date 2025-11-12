@@ -14,11 +14,12 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ProfileComponent } from './features/profile/profile.component';
 
 export const routes: Routes = [
   // Auth routes (not lazy loaded, but grouped)
-  { 
-    path: 'auth', 
+  {
+    path: 'auth',
     children: [
       { path: 'login', component: LoginComponent, title: 'Login' },
       { path: 'register', component: RegisterComponent, title: 'Register' },
@@ -28,18 +29,19 @@ export const routes: Routes = [
   },
 
   // Protected routes (using authGuard)
-  
-  
-  
+
+
+
   { path: 'cart', canActivate: [authGuard], component: CartComponent, title: 'Cart' },
   { path: 'checkout', canActivate: [authGuard], component: CheckoutComponent, title: 'Checkout' },
   { path: 'allorders', canActivate: [authGuard], component: AllOrdersComponent, title: 'All Orders' },
   { path: 'wishlist', canActivate: [authGuard], component: WishlistComponent, title: "Wishlist" },
- 
+
+  { path: 'profile', canActivate: [authGuard], component: ProfileComponent, title: 'Profile' },
 
   // Public , Default and Not Found
   { path: 'products', component: ProductsComponent, title: 'Products' },
-   { path: 'categories', component: CategoriesComponent, title: 'Categories' },
+  { path: 'categories', component: CategoriesComponent, title: 'Categories' },
   { path: 'brands', component: BrandsComponent, title: 'Brands' },
   { path: 'home', component: HomeComponent, title: 'Home' },
   { path: 'product-details/:id', component: ProductDetailsComponent, title: 'Product Details' },

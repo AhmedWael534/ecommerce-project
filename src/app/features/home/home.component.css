@@ -1,4 +1,3 @@
-/* 1. ⬇️ ⬇️ (ده الـ CSS الجديد بتاع السلايدر) ⬇️ ⬇️ */
 .category-item {
   display: block;
   text-decoration: none;
@@ -12,16 +11,14 @@
 }
 
 .category-slider-img {
-  height: 150px; /* نفس الارتفاع */
+  height: 150px;
   width: 100%;
-  object-fit: contain; /* (الحل) هيخلي الصورة كاملة (مش مقصوصة) */
+  object-fit: contain;
   border-radius: 8px;
-  background-color: var(--bg-color-light, #f8f9fa); /* خلفية عشان الفراغ */
+  background-color: var(--bg-color-light, #f8f9fa);
 }
-/* 1. ⬆️ ⬆️ (نهاية الـ CSS الجديد) ⬆️ ⬆️ */
 
 
-/* (ده باقي الكود بتاعك زي ما هو سليم) */
 .product-card {
   border: 1px solid var(--border-color);
   border-radius: 8px;

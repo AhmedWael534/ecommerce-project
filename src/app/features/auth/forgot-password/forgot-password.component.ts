@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-  currentStep: number = 1; 
+  currentStep: number = 1;
   forgotForm: FormGroup;
   verifyForm: FormGroup;
   resetForm: FormGroup;

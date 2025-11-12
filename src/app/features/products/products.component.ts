@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../core/interfaces/api-models';
 import { CommonModule } from '@angular/common';
-import { RouterModule, ActivatedRoute } from '@angular/router'; // (موجود عندك)
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { SeeMorePipe } from '../../shared/pipes/see-more.pipe';
 import { SearchPipe } from '../../shared/pipes/search.pipe';
@@ -35,26 +35,22 @@ export class ProductsComponent implements OnInit {
     private _wishlistService: WishlistService,
     private _authService: AuthService,
     private _toastr: ToastrService,
-    private _route: ActivatedRoute // (موجود عندك)
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    // ⬇️ ⬇️ ⬇️  هنا التعديل  ⬇️ ⬇️ ⬇️
     this._route.queryParamMap.subscribe(params => {
       const brandId = params.get('brand');
-      // 1. اقرأ "subcategory" بدل "category"
-      const subcategoryId = params.get('subcategory'); 
+      const subcategoryId = params.get('subcategory');
 
       let filters: any = {};
       if (brandId) {
         filters.brand = brandId;
       }
-      // 2. ابعت الفلتر بالاسم الصح "subcategory"
       if (subcategoryId) {
-        filters.subcategory = subcategoryId; // الـ API بيستخدم 'subcategory'
+        filters.subcategory = subcategoryId;
       }
 
-      // 3. نادي الـ API بالفلاتر (الكود ده سليم)
       this._productsService.getAllProducts(filters).subscribe({
         next: (res) => {
           this.products = res.data;

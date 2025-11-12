@@ -10,7 +10,7 @@ export class SearchPipe implements PipeTransform {
     if (!term || !products) {
       return products;
     }
-    return products.filter(product => 
+    return products.filter(product =>
       product.title.toLowerCase().includes(term.toLowerCase())
     );
   }

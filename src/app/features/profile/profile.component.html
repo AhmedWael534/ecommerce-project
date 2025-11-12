@@ -1,0 +1,123 @@
+<div class="container my-5">
+
+    <div class="profile-header mb-4 p-4 rounded shadow-sm">
+        <h2>Welcome, {{ _authService.userData.getValue()?.name || 'User' }}</h2>
+        <p class="text-muted">Manage your account details and password.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="mb-4">Update Your Data</h3>
+                    <form [formGroup]="updateDataForm" (ngSubmit)="onUpdateData()">
+
+                        @if (dataApiError) {
+                        <div class="alert alert-danger">
+                            {{ dataApiError }}
+                        </div>
+                        }
+
+                        <div class="mb-3">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            @if (updateDataForm.get('name')?.errors && updateDataForm.get('name')?.touched) {
+                            <div class="alert alert-danger mt-1 p-2">
+                                @if (updateDataForm.get('name')?.getError('required')) {
+                                <span>Name is required.</span>
+                                }
+                                @if (updateDataForm.get('name')?.getError('minlength')) {
+                                <span>Name must be at least 3 characters.</span>
+                                }
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" class="form-control" formControlName="email">
+                            @if (updateDataForm.get('email')?.errors && updateDataForm.get('email')?.touched) {
+                            <div class="alert alert-danger mt-1 p-2">
+                                <span>Invalid email format.</span>
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" class="form-control" formControlName="phone">
+                            @if (updateDataForm.get('phone')?.errors && updateDataForm.get('phone')?.touched) {
+                            <div class="alert alert-danger mt-1 p-2">
+                                <span>Invalid phone number (e.g., 01012345678).</span>
+                            </div>
+                            }
+                        </div>
+
+                        <button type="submit" [disabled]="updateDataForm.invalid || isLoadingData" class="btn btn-main">
+                            @if (!isLoadingData) {
+                            <span>Update Data</span>
+                            } @else {
+                            <span><i class="fa fa-spinner fa-spin"></i> Updating...</span>
+                            }
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="mb-4">Change Password</h3>
+                    <form [formGroup]="updatePasswordForm" (ngSubmit)="onUpdatePassword()">
+
+                        @if (passwordApiError) {
+                        <div class="alert alert-danger">
+                            {{ passwordApiError }}
+                        </div>
+                        }
+
+                        <div class="mb-3">
+                            <label for="currentPassword">Current Password:</label>
+                            <input type="password" id="currentPassword" class="form-control"
+                                formControlName="currentPassword">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password">New Password:</label>
+                            <input type="password" id="password" class="form-control" formControlName="password">
+                            @if (updatePasswordForm.get('password')?.errors &&
+                            updatePasswordForm.get('password')?.touched) {
+                            <div class="alert alert-danger mt-1 p-2">
+                                <span>Password must start with uppercase and be 6-11 chars.</span>
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="rePassword">Re-type New Password:</label>
+                            <input type="password" id="rePassword" class="form-control" formControlName="rePassword">
+                            @if (updatePasswordForm.errors?.['mismatch'] &&
+                            updatePasswordForm.get('rePassword')?.touched) {
+                            <div class="alert alert-danger mt-1 p-2">
+                                <span>Passwords do not match.</span>
+                            </div>
+                            }
+                        </div>
+
+                        <button type="submit" [disabled]="updatePasswordForm.invalid || isLoadingPassword"
+                            class="btn btn-main">
+                            @if (!isLoadingPassword) {
+                            <span>Change Password</span>
+                            } @else {
+                            <span><i class="fa fa-spinner fa-spin"></i> Changing...</span>
+                            }
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
