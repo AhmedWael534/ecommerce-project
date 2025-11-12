@@ -34,6 +34,11 @@
                 "glob": "favicon.ico",
                 "input": "src",
                 "output": "/"
+              },
+              {
+                "glob": "404.html",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -112,6 +117,9 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
