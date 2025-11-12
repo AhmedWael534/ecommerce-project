@@ -1,3 +1,27 @@
+/* 1. ⬇️ ⬇️ (ده الـ CSS الجديد بتاع السلايدر) ⬇️ ⬇️ */
+.category-item {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color-main);
+  transition: transform 0.3s, color 0.3s;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+  color: var(--primary-color);
+}
+
+.category-slider-img {
+  height: 150px; /* نفس الارتفاع */
+  width: 100%;
+  object-fit: contain; /* (الحل) هيخلي الصورة كاملة (مش مقصوصة) */
+  border-radius: 8px;
+  background-color: var(--bg-color-light, #f8f9fa); /* خلفية عشان الفراغ */
+}
+/* 1. ⬆️ ⬆️ (نهاية الـ CSS الجديد) ⬆️ ⬆️ */
+
+
+/* (ده باقي الكود بتاعك زي ما هو سليم) */
 .product-card {
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -89,7 +113,6 @@
 
 .rating i {
   color: #ffc107;
-
 }
 
 .search-input {

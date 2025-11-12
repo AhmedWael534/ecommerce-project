@@ -1,25 +1,24 @@
-.category-card {
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+.brand-card {
+  display: block;
   text-decoration: none;
-  color: var(--text-color-main);
+  color: inherit;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.category-card:hover {
+.brand-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
   color: var(--primary-color);
 }
 
-.category-card img {
-  height: 200px;
-  width: 100%;
-  object-fit: cover;
+/* 1. ⬇️ ⬇️ (هنا حل مشكلة "أكل" صورة البراند) ⬇️ ⬇️ */
+.brand-card .card-img-top {
+  /* إنت عاملها w-50 فـ إحنا بس محتاجين نضمن الارتفاع */
+  height: 150px; 
+  object-fit: contain; /* هتخلي اللوجو كامل (مش مقصوص) */
 }
+/* 1. ⬆️ ⬆️ (نهاية الحل) ⬆️ ⬆️ */
 
-.category-card .card-body {
-  padding: 1.25rem;
+.brand-card .card-body {
+  padding: 1rem 0 0 0; /* قللت المسافات عشان الشكل */
 }

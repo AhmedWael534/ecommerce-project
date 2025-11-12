@@ -6,11 +6,15 @@
     <owl-carousel-o [options]="customOptions">
       @for (category of categories; track category._id) {
       <ng-template carouselSlide>
-        <div class="category-item text-center px-2 cursor-pointer">
-          <img [src]="category.image" [alt]="category.name" class="img-fluid"
-            style="height: 150px; width: 100%; object-fit: cover; border-radius: 8px;">
+
+        <a [routerLink]="['/categories']" [queryParams]="{ category: category._id, name: category.name }"
+          class="category-item text-center px-2 text-decoration-none">
+
+          <img [src]="category.image" [alt]="category.name" class="img-fluid category-slider-img">
+
           <h3 class="h6 mt-2">{{ category.name }}</h3>
-        </div>
+        </a>
+
       </ng-template>
       }
     </owl-carousel-o>
@@ -18,7 +22,6 @@
     <p>Loading categories...</p>
     }
   </div>
-
   <input type="text" class="form-control form-control-lg mb-4" placeholder="Search for products..."
     [(ngModel)]="searchTerm">
 

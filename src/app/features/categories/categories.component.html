@@ -1,15 +1,62 @@
 <div class="container my-5">
-  <h2 class="text-center mb-4">All Categories</h2>
-  <div class="row g-4">
-    @for (category of categories; track category._id) {
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm category-card">
-          <img [src]="category.image" class="card-img-top" [alt]="category.name">
-          <div class="card-body text-center">
-            <h3 class="card-title text-primary">{{ category.name }}</h3>
-          </div>
-        </div>
+
+  @if (isLoading) {
+    <p class="text-center h3">Loading...</p>
+  }
+
+  @if (!isLoading && subcategories.length > 0) {
+    <div class="subcategories-view">
+      
+      <a [routerLink]="['/categories']" class="btn btn-main-outline mb-4">
+        &larr; Back to All Categories
+      </a>
+      
+      <h2 class="text-center mb-4">{{ selectedCategoryName }}</h2>
+      
+      <div class="d-flex flex-wrap gap-3 justify-content-center subcategory-pill-container">
+        @for (sub of subcategories; track sub._id) {
+          <a 
+            [routerLink]="['/products']" 
+            [queryParams]="{ subcategory: sub._id }"
+            class="subcategory-pill">
+            {{ sub.name }}
+          </a>
+        }
       </div>
-    }
-  </div>
+      
+    </div>
+  } @else if (!isLoading && selectedCategoryName) {
+    <div class="subcategories-view">
+      <a [routerLink]="['/categories']" class="btn btn-main-outline mb-4">
+        &larr; Back to All Categories
+      </a>
+      <h2 class="text-center mb-4">{{ selectedCategoryName }}</h2>
+      <p class="text-center text-muted">No subcategories found for this category.</p>
+    </div>
+  }
+
+  @if (!isLoading && categories.length > 0) {
+    <div class="categories-view">
+      <h2 class="text-center mb-4">All Categories</h2>
+      <div class="row g-4">
+        @for (category of categories; track category._id) {
+          <div class="col-md-4">
+            
+            <a 
+              [routerLink]="['/categories']" 
+              [queryParams]="{ category: category._id, name: category.name }"
+              class="card h-100 shadow-sm category-card">
+              
+              <img [src]="category.image" class="card-img-top" [alt]="category.name">
+              <div class="card-body text-center">
+                <h3 class="card-title text-primary">{{ category.name }}</h3>
+              </div>
+            </a>
+            
+          </div>
+        }
+      </div>
+    </div>
+  }
+
 </div>

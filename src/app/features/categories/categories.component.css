@@ -5,6 +5,8 @@
   transition: transform 0.3s, box-shadow 0.3s;
   text-decoration: none;
   color: var(--text-color-main);
+  cursor: pointer;
+  display: block; /* عشان الـ <a> tag ياخد شكل الكارت */
 }
 
 .category-card:hover {
@@ -14,12 +16,58 @@
   color: var(--primary-color);
 }
 
+/* 1. ⬇️ ⬇️ (هنا حل مشكلة "أكل" الصورة) ⬇️ ⬇️ */
 .category-card img {
-  height: 200px;
+  height: 200px; /* نفس الارتفاع */
   width: 100%;
-  object-fit: cover;
+  object-fit: contain; /* هتخلي الصورة كاملة (مش مقصوصة) */
+  background-color: var(--bg-color-light, #f8f9fa); /* خلفية رمادي فاتح عشان الفراغ */
 }
+/* 1. ⬆️ ⬆️ (نهاية الحل) ⬆️ ⬆️ */
+
 
 .category-card .card-body {
   padding: 1.25rem;
 }
+
+/* 2. (زرار الرجوع) */
+.btn-main-outline {
+  color: #4fa74f;
+  border: 1px solid #4fa74f;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-main-outline:hover {
+  background-color: #4fa74f;
+  color: white;
+}
+
+/* 3. ⬇️ ⬇️ (ده الـ CSS للـ "Pills" الجديدة) ⬇️ ⬇️ */
+.subcategory-pill-container {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color-light, #f8f9fa);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.subcategory-pill {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px; /* شكل "حباية" */
+  background-color: var(--bg-color-main);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.subcategory-pill:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* 3. ⬆️ ⬆️ (نهاية الـ CSS الجديد) ⬆️ ⬆️ */
